@@ -1,6 +1,6 @@
 import csv 
 
-
+input_file = "raw_data/uspto_raw.txt"
 input_file = "raw_data/uspto_raw_head5k.txt"
 output_file = "processed_data/uspto_yields.csv"
 
@@ -46,6 +46,7 @@ valid_lines = list(map(line_to_tuple_len_4, valid_lines))
 
 
 
+
 with open(output_file, 'w') as csvfile:
 	fieldnames = ["ID", "X", "Y"]
 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -53,7 +54,27 @@ with open(output_file, 'w') as csvfile:
 	for i,line in enumerate(valid_lines):
 		reaction_id = "reactions_" + str(i+1)
 		reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
-		yields = line[3]
+
+		yields_str = line[3]
+		'''
+			outliers:
+				xx to xx%
+				> xx% 
+				< xx% 
+				>= xx%
+				<= xx%
+				~ xxx%
+
+				weird symbol 
+					'58 ± 2'
+		'''
+		if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
+			continue 
+		try:
+			yields = float(yields_str.strip()[:-1])/100
+		except:
+			print(line)
+			pass 
 		writer.writerow({'ID': reaction_id, 'X': reactions_dict, 'Y': yields})
 
 
