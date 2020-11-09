@@ -52,13 +52,17 @@ with open(output_file, 'w') as csvfile:
 	writer.writeheader()
 	for i,line in enumerate(valid_lines):
 		reaction_id = "reactions_" + str(i+1)
-		reactions = '\t'.join(line[:3]) 
+		reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
 		yields = line[3]
-		writer.writerow({'ID': reaction_id, 'X': reactions, 'Y': yields})
+		writer.writerow({'ID': reaction_id, 'X': reactions_dict, 'Y': yields})
 
 
 
-
+# with open(output_file, 'r') as csvfile:
+# 	reader = list(csv.reader(csvfile, delimiter=','))[1:]
+# 	for row in reader:
+# 		reactions_dict = row[1]
+# 		print(reactions_dict)
 
 
 
