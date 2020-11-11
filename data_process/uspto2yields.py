@@ -1,7 +1,7 @@
 import csv 
 
 input_file = "raw_data/uspto_raw.txt"
-input_file = "raw_data/uspto_raw_head5k.txt"
+# input_file = "raw_data/uspto_raw_head5k.txt"
 output_file = "processed_data/uspto_yields.csv"
 
 with open(input_file, 'r') as fin:

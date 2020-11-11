@@ -15,7 +15,7 @@ def remove_atom_num_in_smiles(smiles):
 ReactionSmiles  PatentNumber    ParagraphNum    Year    TextMinedYield  CalculatedYield  
 '''
 input_file = "raw_data/uspto_raw_head50k.txt"
-# input_file = "raw_data/uspto_raw.txt"
+input_file = "raw_data/uspto_raw.txt"
 output_file = "processed_data/uspto_catalyst.csv"
 most_common_k = 100 
 

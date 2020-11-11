@@ -9,4 +9,7 @@
 
 wget https://media.githubusercontent.com/media/molecularsets/moses/master/data/dataset_v1.csv 
 
+
+awk -F "," '{print $1}' raw_data/dataset_v1.csv > processed_data/moses.csv 
+
 ```
