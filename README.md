@@ -40,3 +40,39 @@ wget https://raw.githubusercontent.com/aspuru-guzik-group/chemical_vae/master/mo
 
 ```
 
+
+
+## [rxn_yields](https://github.com/rxn4chemistry/rxn_yields)
+
+
+It contains 2 datasets: (1) Buchwald-Hartwig and (2)Suzuki-Miyaura
+
+```bash 
+
+## update training_scripts/launch_buchwald_hartwig_training.py 
+cd rxn_yields/training_scripts
+cd /Users/futianfan/Downloads/summer_2020/rxn_yields/training_scripts
+python launch_buchwald_hartwig_training.py finetuned 
+## setup env for rxn_yields is quite complex, so it is not introduced here. 
+## I only modify launch_buchwald_hartwig_training.py and copy it into data_process repo -> output is "buchwald.csv", in raw_data
+
+
+
+python data_process/buchwald_yield.py 
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
