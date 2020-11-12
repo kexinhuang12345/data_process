@@ -1,6 +1,6 @@
 import csv, pickle 
 from time import time 
-
+import pandas as pd
 t1 = time()
 input_file = "raw_data/uspto_raw.txt"
 # input_file = "raw_data/uspto_raw_head5k.txt"
@@ -49,69 +49,73 @@ def line_to_tuple_len_4(line):
 valid_lines = list(map(line_to_tuple_len_4, valid_lines))
 
 
+reaction_id_lst, reaction_dict_lst, yields_lst = [], [], []
+
+with open(output_file, 'w') as csvfile:
+	fieldnames = ["ID", "X", "Y"]
+	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+	writer.writeheader()
+	cnt = 1
+	for i,line in enumerate(valid_lines):
+		yields_str = line[3]
+		'''
+			outliers:
+				xx to xx%
+				> xx% 
+				< xx% 
+				>= xx%
+				<= xx%
+				~ xxx%
+
+				weird symbol 
+					'58 ± 2'
+		'''
+		if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
+			continue 
+		try:
+			yields = float(yields_str.strip()[:-1])/100
+		except:
+			# print(line)
+			pass 
 
 
-# with open(output_file, 'w') as csvfile:
-# 	fieldnames = ["ID", "X", "Y"]
-# 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-# 	writer.writeheader()
-# 	for i,line in enumerate(valid_lines):
-# 		reaction_id = "reactions_" + str(i+1)
-# 		reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
-
-# 		yields_str = line[3]
-# 		'''
-# 			outliers:
-# 				xx to xx%
-# 				> xx% 
-# 				< xx% 
-# 				>= xx%
-# 				<= xx%
-# 				~ xxx%
-
-# 				weird symbol 
-# 					'58 ± 2'
-# 		'''
-# 		if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
-# 			continue 
-# 		try:
-# 			yields = float(yields_str.strip()[:-1])/100
-# 		except:
-# 			# print(line)
-# 			pass 
-
-# 		writer.writerow({'ID': reaction_id, 'X': reactions_dict, 'Y': yields})
+		reaction_id = "reactions_" + str(cnt)
+		reaction_id_lst.append(reaction_id)
+		cnt += 1
+		reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
+		reaction_dict_lst.append(reactions_dict)
+		yields_lst.append(yields)
+		# writer.writerow({'ID': reaction_id, 'X': reactions_dict, 'Y': yields})
 
 
-valid_reactions = []
-cnt = 1
-for line in valid_lines:
-	yields_str = line[3]
-	if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
-		continue 
-	try:
-		yields = float(yields_str.strip()[:-1])/100
-	except:
-		pass 
+data = {"ID": reaction_id_lst, "X": reaction_dict_lst, "Y": yields_lst}
+df = pd.DataFrame(data, columns = fieldnames)
+pickle.dump(df, open(output_file, 'wb'))
 
-	reaction_id = "reactions_" + str(cnt)
-	reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
-	cnt += 1
-	# dic = {'ID': reaction_id, 'X':reactions_dict, 'Y': yields}
-	lst = [reaction_id, reactions_dict, yields]
-	valid_reactions.append(lst)
 
-pickle.dump(valid_reactions, open(output_file, 'wb'))
+# valid_reactions = []
+# cnt = 1
+# for line in valid_lines:
+# 	yields_str = line[3]
+# 	if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
+# 		continue 
+# 	try:
+# 		yields = float(yields_str.strip()[:-1])/100
+# 	except:
+# 		pass 
+
+# 	reaction_id = "reactions_" + str(cnt)
+# 	reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
+# 	cnt += 1
+# 	# dic = {'ID': reaction_id, 'X':reactions_dict, 'Y': yields}
+# 	lst = [reaction_id, reactions_dict, yields]
+# 	valid_reactions.append(lst)
+
+# pickle.dump(valid_reactions, open(output_file, 'wb'))
 
 
 t2 = time()
 print(int((t2-t1)/60), "minutes")
-
-# with open(output_file, 'r') as csvfile:
-# 	reader = list(csv.reader(csvfile, delimiter=','))[1:]
-# 	for row in reader:
-# 		reactions_dict = row[1]
-# 		print(reactions_dict)
 
 
 
