@@ -1,8 +1,12 @@
-import csv 
+import csv, pickle 
+from time import time 
 
+t1 = time()
 input_file = "raw_data/uspto_raw.txt"
 # input_file = "raw_data/uspto_raw_head5k.txt"
 output_file = "processed_data/uspto_yields.csv"
+output_file = "processed_data/uspto_yields.pkl"
+
 
 with open(input_file, 'r') as fin:
 	lines = fin.readlines()[1:]
@@ -47,37 +51,61 @@ valid_lines = list(map(line_to_tuple_len_4, valid_lines))
 
 
 
-with open(output_file, 'w') as csvfile:
-	fieldnames = ["ID", "X", "Y"]
-	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-	writer.writeheader()
-	for i,line in enumerate(valid_lines):
-		reaction_id = "reactions_" + str(i+1)
-		reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
+# with open(output_file, 'w') as csvfile:
+# 	fieldnames = ["ID", "X", "Y"]
+# 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+# 	writer.writeheader()
+# 	for i,line in enumerate(valid_lines):
+# 		reaction_id = "reactions_" + str(i+1)
+# 		reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
 
-		yields_str = line[3]
-		'''
-			outliers:
-				xx to xx%
-				> xx% 
-				< xx% 
-				>= xx%
-				<= xx%
-				~ xxx%
+# 		yields_str = line[3]
+# 		'''
+# 			outliers:
+# 				xx to xx%
+# 				> xx% 
+# 				< xx% 
+# 				>= xx%
+# 				<= xx%
+# 				~ xxx%
 
-				weird symbol 
-					'58 ± 2'
-		'''
-		if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
-			continue 
-		try:
-			yields = float(yields_str.strip()[:-1])/100
-		except:
-			print(line)
-			pass 
-		writer.writerow({'ID': reaction_id, 'X': reactions_dict, 'Y': yields})
+# 				weird symbol 
+# 					'58 ± 2'
+# 		'''
+# 		if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
+# 			continue 
+# 		try:
+# 			yields = float(yields_str.strip()[:-1])/100
+# 		except:
+# 			# print(line)
+# 			pass 
+
+# 		writer.writerow({'ID': reaction_id, 'X': reactions_dict, 'Y': yields})
 
 
+valid_reactions = []
+cnt = 1
+for line in valid_lines:
+	yields_str = line[3]
+	if "to" in yields_str or ">" in yields_str or "<" in yields_str or "~" in yields_str:
+		continue 
+	try:
+		yields = float(yields_str.strip()[:-1])/100
+	except:
+		pass 
+
+	reaction_id = "reactions_" + str(cnt)
+	reactions_dict = {"reactant": line[0], "catalyst": line[1], "product": line[2]}
+	cnt += 1
+	# dic = {'ID': reaction_id, 'X':reactions_dict, 'Y': yields}
+	lst = [reaction_id, reactions_dict, yields]
+	valid_reactions.append(lst)
+
+pickle.dump(valid_reactions, open(output_file, 'wb'))
+
+
+t2 = time()
+print(int((t2-t1)/60), "minutes")
 
 # with open(output_file, 'r') as csvfile:
 # 	reader = list(csv.reader(csvfile, delimiter=','))[1:]
