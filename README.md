@@ -28,5 +28,15 @@ wget https://raw.githubusercontent.com/wengong-jin/iclr19-graph2graph/master/dat
 
 ```
 
+## [ZINC](https://github.com/microsoft/constrained-graph-variational-autoencoder/blob/master/data/get_zinc.py)
 
+pls see https://github.com/microsoft/constrained-graph-variational-autoencoder/blob/master/data/get_zinc.py 
+
+```bash
+
+wget https://raw.githubusercontent.com/aspuru-guzik-group/chemical_vae/master/models/zinc_properties/250k_rndm_zinc_drugs_clean_3.csv 
+
+
+
+```
 
