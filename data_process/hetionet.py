@@ -1,4 +1,4 @@
-import json 
+import json, csv 
 
 
 input_file = "raw_data/hetionet-v1.0.json"
@@ -100,6 +100,29 @@ key:
 # 	assert 'direction' in edge 
 # 	assert 'data' in edge 
 ############ pass ############
+
+fieldnames = ['source_type', 'source_id', 'target_type', 'target_id', 'type', 'direction']
+edges = dic['edges']
+with open(output_file, 'w') as csvfile:
+	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+	writer.writeheader() 
+
+	for edge in edges[:20]:
+		line_dict = {}
+		line_dict['source_type'] = edge['source_id'][0]
+		line_dict['source_id'] = str(edge['source_id'][1])
+		line_dict['target_type'] = edge['target_id'][0]
+		line_dict['target_id'] = str(edge['target_id'][1])
+		line_dict['type'] = edge['kind']
+		line_dict['direction'] = edge['direction']
+		writer.writerow(line_dict)
+
+
+
+
+
+
+
 
 
 
