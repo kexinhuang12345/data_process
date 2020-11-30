@@ -34,7 +34,14 @@ for catalyst in catalyst_lst:
 	catalyst2cnt[catalyst] += 1
 catalyst2cnt = [(catalyst,cnt) for catalyst,cnt in catalyst2cnt.items()]
 catalyst2cnt.sort(key = lambda x:x[1], reverse = True)
-catalyst2cnt = catalyst2cnt[:most_common_k]
+
+
+# catalyst2cnt = catalyst2cnt[:most_common_k]
+catalyst2cnt = list(filter(lambda x:x[1]>=100, catalyst2cnt))
+print(len(catalyst2cnt))
+
+
+
 most_common_catalyst = [catalyst for catalyst,cnt in catalyst2cnt]
 catalyst2idx = dict()
 for i,catalyst in enumerate(most_common_catalyst):

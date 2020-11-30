@@ -3,8 +3,6 @@ from time import time
 import pandas as pd
 t1 = time()
 input_file = "raw_data/uspto_raw.txt"
-# input_file = "raw_data/uspto_raw_head5k.txt"
-output_file = "processed_data/uspto_yields.csv"
 output_file = "processed_data/uspto_yields.pkl"
 
 
@@ -32,7 +30,7 @@ can be empty
 
 ### filter out the line with empty yield 
 valid_lines = list(filter(lambda line:len(line.split('\t')[4].strip())>0 , lines))
-
+# valid_lines = valid_lines[:5000]
 '''
 1939254 lines in raw_file; 
 857111  lines has CalculatedYield. 
