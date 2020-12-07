@@ -107,7 +107,7 @@ with open(output_file, 'w') as csvfile:
 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 	writer.writeheader() 
 
-	for edge in edges[:20]:
+	for edge in edges:
 		line_dict = {}
 		line_dict['source_type'] = edge['source_id'][0]
 		line_dict['source_id'] = str(edge['source_id'][1])
