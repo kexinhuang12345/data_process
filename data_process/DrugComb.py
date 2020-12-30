@@ -1,6 +1,13 @@
 """
 Script for writing DrugComb data in the correct format for TDC
 @yhr91
+-----
+Datasets available at:
+DrugComb: https://drugcomb.fimm.fi/
+NCI-60 genomic features: https://discover.nci.nih.gov/cellminer/loadDownload.do
+     - RNA: microRNA OSU V3 chip
+     - Protein: SWATH (Mass spectrometry)
+     - RNA: RNA-seq
 """
 
 import pandas as pd
