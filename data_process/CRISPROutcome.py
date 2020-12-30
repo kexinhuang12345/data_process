@@ -1,4 +1,5 @@
 # Pre processing script for CRISPR outcomes dataset (Leenay 2019)
+# @yhr91
 # ---------
 # T-Cell outcome analysis data available at:
 # https://figshare.com/articles/dataset/Analyzed_T-Cell_DNA_Repair_Outcomes/6957125
@@ -187,6 +188,8 @@ def main():
     metrics = metrics.reset_index().rename(columns={'index': 'GuideSeq'})
     metrics.to_csv('metrics.csv')
 
+if __name__ == '__main__':
+    main()
 
 """
 Additional information:
