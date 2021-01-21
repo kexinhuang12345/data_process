@@ -1,0 +1,61 @@
+Cell Line,Tissue
+MCF7’,breast
+BT-549,breast
+HS 578T,breast
+MDA-MB-231,breast
+MDA-MB-468,breast
+T-47D,breast
+SF-268,brain
+SF-295,brain
+SF-539,brain
+SNB-19,brain
+SNB-75,brain
+U251,brain
+COLO 205,colon
+HCC-2998,colon
+HCT116,colon
+HCT-15,colon
+HT29,colon
+KM12,colon
+SW-620,colon
+CCRF-CEM,hematopoietic_lymphoid
+HL-60(TB),hematopoietic_lymphoid
+K-562,hematopoietic_lymphoid
+MOLT-4,hematopoietic_lymphoid
+RPMI-8226,hematopoietic_lymphoid
+SR,hematopoietic_lymphoid
+LOX IMVI,skin
+M14,skin
+MALME-3M,skin
+MDA-MB-435,skin
+SK-MEL-2,skin
+SK-MEL-28,skin
+SK-MEL-5,skin
+UACC-257,skin
+UACC62,skin
+A549,lung
+EKVX,lung
+HOP-62,lung
+HOP-92,lung
+NCI-H226,lung
+NCIH23,lung
+NCI-H322M,lung
+NCI-H460,lung
+NCI-H522,lung
+IGROV1,ovary
+NCI/ADR-RES,ovary
+OVCAR3,ovary
+OVCAR-4,ovary
+OVCAR-5,ovary
+OVCAR-8,ovary
+SK-OV-3,ovary
+DU-145,prostate
+PC-3,prostate
+786-0,kidney
+A498,kidney
+ACHN,kidney
+CAKI-1,kidney
+RXF 393,kidney
+SN12C,kidney
+TK-10,kidney
+UO-31,kidney
