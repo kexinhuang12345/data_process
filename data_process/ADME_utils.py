@@ -402,3 +402,30 @@ def CYP2C9_process(name, path, target = None):
 	drugs_idx = df["PUBCHEM_CID"].values
 
 	return drugs, y, drugs_idx
+
+def ppbr_az_process():
+	df = pd.read_csv('/Users/kexinhuang/Desktop/ppbr_astrazeneca.csv', sep = ';')
+	df = df[['Molecule ChEMBL ID', 'Smiles', 'Standard Value']]
+	df.rename(columns = {'Molecule ChEMBL ID': 'ID', 'Smiles': 'X', 'Standard Value': 'Y'}).to_csv('/Users/kexinhuang/Desktop/ppbr_az.csv', index = False)
+
+def dili_process():
+	df = df[df.Label.notnull()]
+	df.rename(columns = {'CID': 'ID', 'Canonical SMILES': 'X', 'Label': 'Y'}).to_csv('/Users/kexinhuang/Desktop/dili.csv', index = False)
+
+def ames_process():
+	df = pd.read_excel('/Users/kexinhuang/Desktop/ames.xls', skiprows = 1)
+	df['Y'] = 0
+	df.loc[df.Labels == 'mutagens', 'Y'] = 1
+	df['ID'] = ['Drug ' + str(i) for i in range(len(df))]
+	df = df[['ID', 'SMILES', 'Y']]
+	df.rename(columns = {'SMILES': 'X'}).to_csv('/Users/kexinhuang/Desktop/ames.csv', index = False)
+
+def skin_reaction_process():
+	df = pd.read_excel('/Users/kexinhuang/Desktop/skin_reaction.xlsx')
+	df[['Name', 'SMILES', 'Activity']].rename(columns = {'SMILES': 'X', 'Name': 'ID', 'Activity': 'Y'}).to_csv('/Users/kexinhuang/Desktop/skin_reaction.csv', index = False)
+
+def hreg_process():
+	df = pd.read_excel('/Users/kexinhuang/Desktop/hREG.xlsx', skiprows = 1)
+	df = df[['SIMILES', 'Name', 'Classa']]
+	df = df[df['Classa'].notnull()]
+	df.rename(columns = {'SIMILES': 'X', 'Name': 'ID', 'Classa': 'Y'}).to_csv('/Users/kexinhuang/Desktop/hreg.csv', index = False)
