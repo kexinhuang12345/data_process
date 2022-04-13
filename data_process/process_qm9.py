@@ -77,8 +77,8 @@ while True:
 	if pointer % 2000 == 0:
 		print(pointer)
 
-	if pointer > 10000:
-		break 
+	# if pointer > 10000:
+	# 	break 
 
 # pickle.dump(data_list, open('qm9.pkl', 'wb'))
 # print(data_list[:3])
