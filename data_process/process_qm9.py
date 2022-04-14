@@ -32,7 +32,7 @@ targets = ['A', 'B', 'C', 'mu', 'alpha', 'homo', 'lumo', 'gap', 'r2', 'zpve', 'U
 ''' 
 
 def atom2onehot(atom):
-	onehot = torch.zeros(1,len(atom_types))
+	onehot = np.zeros((1,len(atom_types)))
 	idx = atom_types.index(atom)
 	onehot[0,idx] = 1
 	return onehot 
@@ -60,12 +60,12 @@ while True:
 		while lines[pointer][0] in atom_types:
 			line = lines[pointer]
 			atom_vec = atom2onehot(line[0]) #### (1,5)
-			position = torch.FloatTensor([float(i) for i in line.split()[1:4]]).view(1,3) ### (1,3)
+			position = np.array([float(i) for i in line.split()[1:4]]).reshape(1,3) ### (1,3)
 			atom_list.append(atom_vec)
 			position_list.append(position)
 			pointer += 1
-		atom_feature = torch.cat(atom_list, 0)
-		positions = torch.cat(position_list, 0)
+		atom_feature = np.concatenate(atom_list, 0)
+		positions = np.concatenate(position_list, 0)
 		# data = Data(x=atom_feature, pos=positions, y=properties)
 		data_list.append((atom_feature, positions))
 		id_list.append(drug_id)
