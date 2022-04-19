@@ -55,19 +55,21 @@ while True:
 		drug_id = '_'.join(lines[pointer].split()[:2])
 		# assert len(properties) == 15
 		pointer += 1 
-		atom_list = []
+		# atom_list = []
+		atom_str = '' #### 'CCHHHH'
 		position_list = []
 		while lines[pointer][0] in atom_types:
 			line = lines[pointer]
-			atom_vec = atom2onehot(line[0]) #### (1,5)
+			atom_str += line[0]
+			# atom_vec = atom2onehot(line[0]) #### (1,5)
 			position = np.array([float(i) for i in line.split()[1:4]]).reshape(1,3) ### (1,3)
-			atom_list.append(atom_vec)
+			# atom_list.append(atom_vec)
 			position_list.append(position)
 			pointer += 1
-		atom_feature = np.concatenate(atom_list, 0)
+		# atom_feature = np.concatenate(atom_list, 0)  ### one-hot vector features. 
 		positions = np.concatenate(position_list, 0)
 		# data = Data(x=atom_feature, pos=positions, y=properties)
-		data_list.append((atom_feature, positions))
+		data_list.append((atom_str, positions))
 		id_list.append(drug_id)
 
 	pointer += 1
