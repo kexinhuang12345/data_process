@@ -35,17 +35,20 @@ while True:
 		position_list = []
 		while True:
 			line = lines[pointer]
-			atom_vec = atom2onehot(line[0]) #### (1,5)
+			# atom_vec = atom2onehot(line[0]) #### (1,5)  one-hot
 			position = np.array([float(i) for i in line.split()[1:4]]).reshape(1,3) ### (1,3)
-			atom_list.append(atom_vec)
+			# atom_list.append(atom_vec)
+			atom_list.append(line[0])
 			position_list.append(position)
 			pointer += 1
 			if pointer >= lines_num or lines[pointer].strip() == '':
 				break 
-		atom_feature = np.concatenate(atom_list, 0)
+
+		# atom_feature = np.concatenate(atom_list, 0) ##### one-hot 
 		positions = np.concatenate(position_list, 0)
 		# data = Data(x=atom_feature, pos=positions, y=properties)
-		data_list.append((atom_feature, positions))
+		# data_list.append((atom_feature, positions))
+		data_list.append((atom_list, positions))
 		id_list.append(drug_id)
 
 	pointer += 1
