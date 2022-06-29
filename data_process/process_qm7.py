@@ -64,6 +64,7 @@ while True:
 print(data_list[:3])
 Y_list = np.array(Y_list)
 
+print("number of data points", Y_list.shape[0])
 df = pd.DataFrame()
 df['X'] = pd.Series(data_list)
 df['ID'] = pd.Series(id_list)

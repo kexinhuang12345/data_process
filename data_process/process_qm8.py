@@ -36,6 +36,7 @@ print(feature_lst[:3])
 Y_list = np.concatenate(Y_list, 0)
 labels_name = ['E1-CC2', 'E2-CC2', 'f1-CC2', 'f2-CC2', 'E1-PBE0', 'E2-PBE0', 'f1-PBE0', 'f2-PBE0', 'E1-PBE0', 'E2-PBE0', 'f1-PBE0', 'f2-PBE0', 'E1-CAM', 'E2-CAM', 'f1-CAM',]
 
+print("number of data points", Y_list.shape[0])
 
 df = pd.DataFrame()
 df['X'] = pd.Series(feature_lst)
