@@ -25,17 +25,19 @@ paired_data = [(phase1_file, phase1_lines), (phase2_file, phase2_lines), (phase3
 for file, lines in paired_data:
 	with open(file, 'w', newline='') as csvfile:
 	    writer = csv.writer(csvfile, delimiter=',')
-	    writer.writerow(['ID1', 'ID2', 'X1', 'X2', 'Y'])
+	    writer.writerow(['ID1', 'ID2', 'ID3', 'X1', 'X2', 'X3', 'Y'])
 	    for i,line in enumerate(lines):
 	    	drug = line[8][2:-2].split("', '")
 	    	drug = '__'.join(drug)
-	    	# print(type(drug), drug)
 	    	label = line[3]
 	    	icdcodes = line[6][2:-2]
 	    	icdcodes = ''.join(list(filter(lambda x:x!='[' and x!=']' and x!='"' and x!="'", icdcodes)))
 	    	icdcodes = '__'.join(icdcodes.split(', '))
-	    	# print(icdcodes)
-	    	writer.writerow([str(i), str(i), drug, icdcodes, label])
+	    	criteria = line[9]
+	    	criteria = ' '.join(criteria.split('\n'))
+	    	for t in range(5):
+	    		criteria = ' '.join(criteria.split('  '))
+	    	writer.writerow([str(i), str(i), str(i), drug, icdcodes, criteria, label])
 
 
 
