@@ -1,9 +1,9 @@
 import csv 
 
 raw_file = "raw_data.csv"
-phase1_file = 'phase1.csv'
-phase2_file = 'phase2.csv'
-phase3_file = 'phase3.csv' 
+phase1_file = 'phase1.tab'
+phase2_file = 'phase2.tab'
+phase3_file = 'phase3.tab' 
 
 with open(raw_file, 'r') as csvfile:
 	reader = list(csv.reader(csvfile, delimiter=','))
@@ -24,8 +24,8 @@ paired_data = [(phase1_file, phase1_lines), (phase2_file, phase2_lines), (phase3
 
 for file, lines in paired_data:
 	with open(file, 'w', newline='') as csvfile:
-	    writer = csv.writer(csvfile, delimiter=',')
-	    writer.writerow(['ID1', 'ID2', 'ID3', 'X1', 'X2', 'X3', 'Y'])
+	    writer = csv.writer(csvfile, delimiter='\t')
+	    writer.writerow(['drug_molecules', 'icdcodes', 'eligibility_criteria', 'Y'])
 	    for i,line in enumerate(lines):
 	    	drug = line[8][2:-2].split("', '")
 	    	drug = '__'.join(drug)
@@ -36,8 +36,9 @@ for file, lines in paired_data:
 	    	criteria = line[9]
 	    	criteria = ' '.join(criteria.split('\n'))
 	    	for t in range(5):
-	    		criteria = ' '.join(criteria.split('  '))
-	    	writer.writerow([str(i), str(i), str(i), drug, icdcodes, criteria, label])
+	    		criteria = ' '.join(criteria.split('  ')) #### remove multiple spaces. 
+	    	writer.writerow([drug, icdcodes, criteria, label])
+	    	# writer.writerow([str(i), str(i), str(i), drug, icdcodes, criteria, label])
 
 
 
